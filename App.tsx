@@ -48,6 +48,29 @@ const App = () => {
 		},
 	]
 
+	const menu = [
+		{
+			cat_id: 1,
+			cat_title: 'Pizza',
+			menu: [
+				{
+					id: 1,
+					menu_title: 'Papa John',
+					menu_image: 'https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2022/08/0/0/Papa-Johns-Dragon-Flame_pizza_dragon-hand.jpg?ve=1&tl=1',
+					menu_time: '35 - 40 min',
+					menu_delivery: 'Delivery from RM2.00'
+				},
+				{
+					id: 2,
+					menu_title: `Domino's`,
+					menu_image: 'https://static.wixstatic.com/media/60364e_0f2807e5fec74ee69ed254e13d3b849d~mv2.jpg/v1/fill/w_640,h_334,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/60364e_0f2807e5fec74ee69ed254e13d3b849d~mv2.jpg',
+					menu_time: '35 - 40 min',
+					menu_delivery: 'Delivery from RM3.00'
+				},
+			]
+		}
+	]
+
 	useEffect(() => {
 		
 	}, [])
@@ -62,8 +85,8 @@ const App = () => {
 					backgroundColor: color.white, 
 					paddingHorizontal: (5/100) * container.width,
 					paddingTop: (1/100) * container.height,
-					borderTopLeftRadius: (2/100) * container.width,
-					borderTopRightRadius: (2/100) * container.width
+					borderTopLeftRadius: (3/100) * container.width,
+					borderTopRightRadius: (3/100) * container.width
 				}}>
 					
 					<ScrollView>
@@ -93,6 +116,22 @@ const App = () => {
 									</TouchableOpacity>)
 								}
 							</ScrollView>
+
+							<View style={{ marginTop: (3/100) * container.height}}>
+								<View>
+									<Text style={{fontWeight: 'bold', fontSize: fontsize.extra_large, color: color.black}}>Menu</Text>
+								</View>
+								<View>
+									{
+										menu.length > 0 && menu.map((item, index) => 
+										<TouchableOpacity key={index}>
+											<View style={{ borderRadius: (1/100) * container.width, borderWidth: 0.5, borderColor: color.inactive}}>
+												
+											</View>
+										</TouchableOpacity>)
+									}
+								</View>
+							</View>
 						</View>
 					</ScrollView>
 
