@@ -120,7 +120,7 @@ const App = () => {
 					borderTopRightRadius: (3/100) * container.width
 				}}>
 					
-					<ScrollView style={{ paddingBottom: (10/100) * container.height}} contentContainerStyle={{ paddingBottom: (10/100) * container.height}}>
+					<ScrollView style={{ paddingBottom: (10/100) * container.height}} contentContainerStyle={{ paddingBottom: (10/100) * container.height}} showsVerticalScrollIndicator={false}>
 						<View style={{ padding: (1/100) * container.width}}>
 
 
