@@ -166,7 +166,8 @@ const App = () => {
 												style={{
 													width: '100%',
 													height: (15/100) * container.height,
-													borderRadius: (2/100) * container.width
+													borderTopLeftRadius: (2/100) * container.width,
+													borderTopRightRadius: (2/100) * container.width
 												}}
 												resizeMode="stretch"
 												/>
