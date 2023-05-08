@@ -176,7 +176,13 @@ const App = () => {
 														<Text style={{fontSize: 9, color: 'gray'}}>{item.menu_time} • {item.menu_delivery}</Text>
 													</View>
 													<View>
-														<Text>Love</Text>
+														<Image 
+														source={require('./assets/heart.png')}
+														style={{
+															width: (5/100) * container.width,
+															height: (5/100) * container.width
+														}}
+														/>
 													</View>
 												</View>
 											</View>
