@@ -110,7 +110,11 @@ const ViewMenu = ({navigation, route}) => {
                                         source={{ uri: tops.toppings_image}}
                                         style={{
                                             width: (26/100) * container.width,
-                                            height: (18/100) * container.width
+                                            height: (18/100) * container.width,
+                                            backgroundColor: color.white,
+                                            borderWidth: 1,
+                                            borderColor: color.lightgray,
+                                            borderRadius: (1/100) * container.width
                                         }}
                                         resizeMode="contain"
                                     />
