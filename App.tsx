@@ -2,10 +2,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import GetStarted from './screens/GetStarted';
 import ViewMenu from './screens/VIewMenu';
+import { collection, db, getDocs, query, where } from './firebase';
 
 
 const Stack 	= createNativeStackNavigator()
@@ -13,6 +14,29 @@ const Tab 		= createBottomTabNavigator()
 
 // create a component
 const App = () => {
+
+	useEffect(() => {
+		testFirestore();
+	}, [])
+
+	const testFirestore = async () => {
+		try {
+            const q = query(collection(db, "user"));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                console.log('No documents found with email: ');
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+            });
+        } catch (error) {
+            console.log(error);
+        }
+	};
+
 	return (
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName='GetStarted' screenOptions={{ headerShown: false}}>

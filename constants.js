@@ -5,7 +5,9 @@ export const color = {
     secondary: '#3b82f6',
     white: '#f9fafb',
     black: '#404040',
-    inactive: '#d4d4d8'
+    inactive: '#d4d4d8',
+    gray: '#6b7280',
+    lightgray: '#e4e4e7'
 }
 
 export const container = {

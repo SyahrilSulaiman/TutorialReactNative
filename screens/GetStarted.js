@@ -1,14 +1,18 @@
 //import liraries
 import React, { Component, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, StatusBar, NativeModules, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, StatusBar, NativeModules, TouchableOpacity, Image, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { color, container, fontsize } from '../constants';
+import { collection, db, onSnapshot } from '../firebase';
 
 const { StatusBarManager } = NativeModules;
 
 // create a component
-const GetStarted = () => {
+const GetStarted = ({navigation, route}) => {
 
-	const [active_menu, set_active_menu] = useState("")
+	const [active_menu, set_active_menu] 		= useState("")
+	const [realtime_menu, set_realtime_menu] 	= useState([])
+	const [loading, set_loading] 				= useState(true)
+
 	const menu_categories = [
 		{
 			id: 1,
@@ -81,6 +85,22 @@ const GetStarted = () => {
 
 	useEffect(() => {
 		
+		const dbRef = collection(db, "menu")
+		const unsubscribe = onSnapshot(dbRef, docsSnap => {
+			set_loading(true);
+			let new_array = []
+			docsSnap.forEach(doc => {
+				let getDataFromFirebase = doc.data();
+				new_array.push(getDataFromFirebase)
+			})
+
+			set_realtime_menu(new_array)
+			set_loading(false);
+		});
+
+		// Cleanup the listener when the component unmounts
+		return () => unsubscribe();
+
 	}, [])
 
 	return (
@@ -135,8 +155,15 @@ const GetStarted = () => {
 								</View>
 								<View style={{ paddingTop: (1/100) * container.height}}> 
 									{
-										menu.length > 0 && menu.map((item, index) => 
-										<TouchableOpacity key={index} style={{marginBottom: (3/100) * container.height}}>
+										loading && <ActivityIndicator size={(5/100) & container.width} color={color.black} />
+									}
+									{
+										loading === false && realtime_menu.length > 0 && realtime_menu.map((item, index) => 
+										<TouchableOpacity 
+											key={index} 
+											style={{marginBottom: (3/100) * container.height}}
+											onPress={() => navigation.push("ViewMenu", item)}
+										>
 											<View style={{ borderRadius: (2/100) * container.width, borderWidth: 0.5, borderColor: color.inactive}}>
 												<Image 
 												source={{ uri: item.menu_image}}
