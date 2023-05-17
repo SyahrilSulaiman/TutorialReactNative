@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 // create a component
 const ViewMenu = ({navigation, route}) => {
 
-    const { menu_title, menu_image, menu_time, menu_delivery, menu_status } = route.params
+    const { title, image, time, delivery, status } = route.params
 
 
     const toppings = [
@@ -50,7 +50,7 @@ const ViewMenu = ({navigation, route}) => {
                     flex: 0.3
                 }}>
                     <Image 
-                        source={{ uri: menu_image}}
+                        source={{ uri: image }}
                         style={{
                             width: '100%',
                             height: (30/100) * container.height
@@ -79,11 +79,11 @@ const ViewMenu = ({navigation, route}) => {
                     padding: (5/100) * container.width
                 }}>
                     <View>
-                        <Text style={{ fontWeight: 'bold', fontSize: (5/100) * container.width}}>{menu_title}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: (5/100) * container.width}}>{title}</Text>
                     </View>
                     <View style={{marginTop: (1/100) * container.height}}>
                         <Text style={{ fontSize: (3/100) * container.width, color: color.gray}}>
-                            {menu_delivery} • {menu_time}
+                            {delivery} • {time}
                         </Text>
                     </View>
                     {/* <View style={{marginTop: (1/100) * container.height}}>

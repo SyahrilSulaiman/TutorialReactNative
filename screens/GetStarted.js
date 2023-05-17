@@ -84,24 +84,44 @@ const GetStarted = ({navigation, route}) => {
 	]
 
 	useEffect(() => {
-		
-		const dbRef = collection(db, "menu")
-		const unsubscribe = onSnapshot(dbRef, docsSnap => {
-			set_loading(true);
-			let new_array = []
-			docsSnap.forEach(doc => {
-				let getDataFromFirebase = doc.data();
-				new_array.push(getDataFromFirebase)
-			})
+		// const dbRef = collection(db, "menu")
+		// const unsubscribe = onSnapshot(dbRef, docsSnap => {
+		// 	set_loading(true);
+		// 	let new_array = []
+		// 	docsSnap.forEach(doc => {
+		// 		let getDataFromFirebase = doc.data();
+		// 		new_array.push(getDataFromFirebase)
+		// 	})
 
-			set_realtime_menu(new_array)
-			set_loading(false);
-		});
+		// 	set_realtime_menu(new_array)
+		// 	set_loading(false);
+		// });
 
-		// Cleanup the listener when the component unmounts
-		return () => unsubscribe();
-
+		// // Cleanup the listener when the component unmounts
+		// return () => unsubscribe();
+		fetchData();
 	}, [])
+
+	const fetchData = async () => {
+
+		set_loading(true);
+
+		var requestOptions = {
+			method: 'GET',
+			redirect: 'follow'
+		};
+		  
+		await fetch("http://192.168.0.141:3000/api/menu/list", requestOptions)
+		.then(response => response.json())
+		.then(result => {
+			console.log(result.data)
+			set_realtime_menu(result.data)
+			set_loading(false)
+		})
+		.catch(error => console.log('error', error));
+
+		set_loading(false)
+	}
 
 	return (
 		<View style={{ flex: 1, backgroundColor: color.white}}>
@@ -166,7 +186,7 @@ const GetStarted = ({navigation, route}) => {
 										>
 											<View style={{ borderRadius: (2/100) * container.width, borderWidth: 0.5, borderColor: color.inactive}}>
 												<Image 
-												source={{ uri: item.menu_image}}
+												source={{ uri: item.image}}
 												style={{
 													width: '100%',
 													height: (15/100) * container.height,
@@ -177,8 +197,8 @@ const GetStarted = ({navigation, route}) => {
 												/>
 												<View style={{padding: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
 													<View>
-														<Text style={{fontWeight: 'bold'}}>{item.menu_title}</Text>
-														<Text style={{fontSize: 9, color: 'gray'}}>{item.menu_time} • {item.menu_delivery}</Text>
+														<Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+														<Text style={{fontSize: 9, color: 'gray'}}>{item.menu_time} • {item.delivery}</Text>
 													</View>
 													<View>
 														<Image 
